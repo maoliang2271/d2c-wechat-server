@@ -5,6 +5,7 @@ const bodyParser = require("koa-bodyparser");
 const fs = require("fs");
 const path = require("path");
 const { init: initDB, Counter } = require("./db");
+const d2cRouter = require("./routers/d2c");
 
 const router = new Router();
 
@@ -43,12 +44,7 @@ router.get("/api/count", async (ctx) => {
   };
 });
 
-// 小程序调用，获取微信 Open ID
-router.get("/api/wx_openid", async (ctx) => {
-  if (ctx.request.headers["x-wx-source"]) {
-    ctx.body = ctx.request.headers["x-wx-openid"];
-  }
-});
+router.use('/api', d2cRouter)
 
 const app = new Koa();
 app
