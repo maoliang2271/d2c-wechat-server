@@ -25,6 +25,20 @@ router.get("/getCreateMiniAuthUrl", async (ctx) => {
   }
 });
 
+
+router.get("/api/fastregisterbetaweapp", async (ctx) => {
+  const data = await request({
+    method: 'POST',
+    url: 'http://api.weixin.qq.com//wxa/component/fastregisterbetaweapp',
+    body: JSON.stringify({
+      openid: ctx.request.headers["x-wx-openid"],
+      name: 'test',
+    })
+  })
+  console.log(JSON.parse(data))
+  ctx.body = JSON.parse(data)
+});
+
 // return new Promise((resolve, reject) => {
 //   request({
 //     method: 'POST',
